@@ -1,0 +1,1055 @@
+/* Premium Stylesheet for High-Precision Astrology Calculator */
+
+:root {
+    --bg-main: #07090c;
+    --bg-card: rgba(18, 22, 30, 0.7);
+    --bg-card-hover: rgba(26, 32, 44, 0.8);
+    --color-primary: #d4af37; /* Metallic gold */
+    --color-primary-light: #f3e5ab; /* Champagne gold */
+    --color-accent: #8b5cf6; /* Royal purple */
+    --color-text-main: #f3f4f6;
+    --color-text-muted: #9ca3af;
+    --color-border: rgba(212, 175, 55, 0.2);
+    --color-border-focus: rgba(212, 175, 55, 0.6);
+    --color-success: #10b981;
+    --color-warning: #f59e0b;
+    --color-error: #ef4444;
+    --font-header: 'Outfit', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    --border-radius: 16px;
+    --transition-fast: all 0.2s ease;
+    --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset and Core Layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-main);
+    background-image: 
+        radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.08) 0, transparent 50%),
+        radial-gradient(at 50% 0%, rgba(212, 175, 55, 0.05) 0, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(59, 130, 246, 0.05) 0, transparent 50%);
+    background-attachment: fixed;
+    color: var(--color-text-main);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.app-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* Header styling */
+.app-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.app-header h1 {
+    font-family: var(--font-header);
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    letter-spacing: -0.025em;
+    margin-bottom: 0.25rem;
+}
+
+.app-header h2 {
+    font-family: var(--font-header);
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.app-header .subtitle {
+    font-size: 1rem;
+    color: var(--color-text-muted);
+}
+
+/* Cards layout */
+.card {
+    background: var(--bg-card);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--color-border);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--card-shadow);
+    transition: var(--transition-normal);
+}
+
+.card:hover {
+    border-color: rgba(212, 175, 55, 0.35);
+}
+
+.card-header {
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 1rem;
+}
+
+.card-title-en {
+    font-family: var(--font-header);
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+}
+
+.card-title-ta {
+    font-family: var(--font-header);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--color-primary);
+    margin-top: 0.2rem;
+}
+
+/* Form inputs styling */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.form-group label {
+    font-family: var(--font-header);
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: 0.4rem;
+}
+
+.form-group label.label-ta {
+    color: var(--color-primary-light);
+    font-size: 0.8rem;
+    margin-top: -0.1rem;
+    margin-bottom: 0.3rem;
+}
+
+.form-group input {
+    background: rgba(10, 12, 16, 0.8);
+    border: 1px solid var(--color-border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--color-text-main);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    transition: var(--transition-fast);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.2);
+}
+
+/* Autocomplete suggestion dropdown */
+.autocomplete {
+    position: relative;
+}
+
+.suggestions-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #12161e;
+    border: 1px solid var(--color-border);
+    border-top: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    max-height: 200px;
+    overflow-y: auto;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.suggestion-item {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: var(--transition-fast);
+}
+
+.suggestion-item:hover {
+    background: rgba(212, 175, 55, 0.15);
+    color: var(--color-primary-light);
+}
+
+/* Submit button */
+.form-submit {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.btn {
+    background: linear-gradient(135deg, var(--color-primary), #b8911c);
+    border: none;
+    border-radius: 12px;
+    padding: 1rem 2.5rem;
+    color: #07090c;
+    font-family: var(--font-header);
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+    background: linear-gradient(135deg, #e2c26f, var(--color-primary));
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn span {
+    display: block;
+}
+
+.btn-text-ta {
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-top: 0.1rem;
+}
+
+/* Loading Card */
+.loading-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem;
+    text-align: center;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 3px solid rgba(212, 175, 55, 0.1);
+    border-radius: 50%;
+    border-top-color: var(--color-primary);
+    animation: spin 1s linear infinite;
+    margin-bottom: 1.5rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-card p {
+    font-family: var(--font-header);
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+}
+
+.loading-text-ta {
+    color: var(--color-primary-light);
+    font-size: 0.9rem;
+}
+
+/* Results grid layout */
+.results-section {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.results-grid-two-col {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+}
+
+@media (min-width: 992px) {
+    .results-grid-two-col {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+.results-col {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-title {
+    font-family: var(--font-header);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+    letter-spacing: -0.01em;
+}
+
+.section-sub {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    margin-top: 0.1rem;
+}
+
+.title-divider {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, var(--color-primary) 0%, transparent 100%);
+    margin: 0.75rem 0 1.5rem 0;
+    opacity: 0.6;
+}
+
+/* Basic Info list */
+.info-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.info-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.05);
+    font-size: 0.95rem;
+}
+
+.info-row strong {
+    font-family: var(--font-header);
+    color: var(--color-text-muted);
+}
+
+.info-row span {
+    text-align: right;
+}
+
+.info-row.highlight {
+    background: rgba(212, 175, 55, 0.05);
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.75rem 0.75rem;
+    border-radius: 8px;
+}
+
+.info-row.highlight strong {
+    color: var(--color-primary-light);
+}
+
+.info-row.highlight span {
+    font-weight: 600;
+    color: var(--color-primary-light);
+}
+
+/* Rasi chart layout */
+.chart-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.rasi-chart-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    width: 100%;
+    max-width: 440px;
+    aspect-ratio: 1 / 1;
+    border: 3px solid var(--color-primary);
+    background: rgba(10, 12, 16, 0.4);
+    position: relative;
+    border-radius: 8px;
+}
+
+.chart-cell {
+    border: 1.5px solid var(--color-primary);
+    padding: 0.4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+    transition: var(--transition-fast);
+}
+
+.chart-cell:hover {
+    background: rgba(212, 175, 55, 0.05);
+}
+
+.rasi-name {
+    font-family: var(--font-header);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-primary-light);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+}
+
+.rasi-planets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-top: 0.2rem;
+    justify-content: center;
+}
+
+/* Planet tags within chart cells */
+.planet-tag {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.15rem 0.3rem;
+    border-radius: 4px;
+    display: inline-block;
+    color: #07090c;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.lagna-tag { background: #e0aaff; color: #3c096c; border: 1px solid #c77dff; }
+.sun-tag { background: #ffd000; color: #6a3805; }
+.moon-tag { background: #e0f2fe; color: #0369a1; }
+.mars-tag { background: #fecaca; color: #991b1b; }
+.mercury-tag { background: #dcfce7; color: #166534; }
+.jupiter-tag { background: #fef9c3; color: #854d0e; }
+.venus-tag { background: #fce7f3; color: #9d174d; }
+.saturn-tag { background: #d1d5db; color: #374151; }
+.rahu-tag { background: #c084fc; color: #581c87; }
+.ketu-tag { background: #fda4af; color: #9f1239; }
+
+.chart-cell-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: 1.5px solid var(--color-primary);
+    background: rgba(7, 9, 12, 0.85);
+    font-family: var(--font-header);
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+    padding: 1rem;
+}
+
+.chart-cell-center small {
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    margin-top: 0.2rem;
+}
+
+/* Tables styling */
+.table-responsive {
+    overflow-x: auto;
+    width: 100%;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.data-table th, .data-table td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.data-table th {
+    font-family: var(--font-header);
+    font-weight: 600;
+    color: var(--color-primary-light);
+    border-bottom: 2px solid var(--color-border);
+}
+
+.data-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.data-table td strong {
+    font-family: var(--font-header);
+    font-weight: 500;
+}
+
+/* Personality Predictions Panel */
+.pred-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.pred-card {
+    background: rgba(255, 255, 255, 0.02);
+    border-left: 3px solid var(--color-primary);
+    padding: 1.25rem;
+    border-radius: 0 8px 8px 0;
+    transition: var(--transition-fast);
+}
+
+.pred-card:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.pred-card h4 {
+    font-family: var(--font-header);
+    color: var(--color-primary-light);
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.pred-card p {
+    font-size: 0.95rem;
+    color: var(--color-text-main);
+    line-height: 1.6;
+}
+
+/* Dasha Section Card */
+.dasha-balance-header {
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.dasha-bal-en, .dasha-bal-ta {
+    font-size: 0.95rem;
+}
+
+.dasha-bal-ta {
+    color: var(--color-primary-light);
+}
+
+.dasha-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-height: 600px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+}
+
+.dasha-node {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 1.25rem;
+    transition: var(--transition-fast);
+}
+
+.dasha-node:hover {
+    border-color: var(--color-border);
+    background: rgba(255, 255, 255, 0.04);
+}
+
+.dasha-planet {
+    font-family: var(--font-header);
+    font-size: 1.1rem;
+    color: var(--color-primary);
+}
+
+.dasha-dates {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-bottom: 0.6rem;
+}
+
+.dasha-desc {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 0.75rem;
+}
+
+.bhukti-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.bhukti-title {
+    font-family: var(--font-header);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+
+.bhukti-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.5rem;
+}
+
+.bhukti-badge {
+    background: rgba(10, 12, 16, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 6px;
+    padding: 0.4rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    font-size: 0.75rem;
+    align-items: center;
+    text-align: center;
+}
+
+.bhukti-badge span {
+    font-weight: 600;
+    color: var(--color-text-main);
+}
+
+.bhukti-badge small {
+    color: var(--color-text-muted);
+    font-size: 0.65rem;
+    margin-top: 0.1rem;
+}
+
+/* Transit Timeline Scrollbox */
+.transit-timeline {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    max-height: 700px;
+    overflow-y: auto;
+    padding-right: 0.75rem;
+}
+
+.transit-item {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 1.25rem;
+    border-left: 4px solid var(--color-text-muted);
+    transition: var(--transition-fast);
+}
+
+.transit-item:hover {
+    transform: translateX(3px);
+}
+
+.transit-item.saturn { border-left-color: #374151; }
+.transit-item.jupiter { border-left-color: var(--color-primary); }
+.transit-item.rahu { border-left-color: var(--color-accent); }
+
+.transit-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.transit-date {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    font-weight: 500;
+}
+
+.transit-badge-impact {
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+.transit-badge-impact.impact-positive {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--color-success);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.transit-badge-impact.impact-warning {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--color-warning);
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.transit-badge-impact.impact-neutral {
+    background: rgba(156, 163, 175, 0.1);
+    color: var(--color-text-muted);
+    border: 1px solid rgba(156, 163, 175, 0.2);
+}
+
+.transit-header {
+    font-family: var(--font-header);
+    font-size: 1rem;
+    color: var(--color-text-main);
+    margin-bottom: 0.4rem;
+}
+
+.transit-body {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+}
+
+/* Footer styling */
+.app-footer {
+    text-align: center;
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: 0.8rem;
+}
+
+.app-footer p {
+    margin-bottom: 0.4rem;
+}
+
+/* Hidden helper utility */
+.hidden {
+    display: none !important;
+}
+
+/* Styling Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.01);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
+}
+
+/* ==========================================
+   Language Switcher Toggle Styling
+   ========================================== */
+.lang-switch-container {
+    display: inline-flex;
+    background: rgba(18, 22, 30, 0.6);
+    border: 1px solid var(--color-border);
+    border-radius: 30px;
+    padding: 0.25rem;
+    margin-top: 1.5rem;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    border-radius: 20px;
+    padding: 0.5rem 1.5rem;
+    color: var(--color-text-muted);
+    font-family: var(--font-header);
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+}
+
+.lang-btn:hover {
+    color: var(--color-primary-light);
+}
+
+.lang-btn.active {
+    background: linear-gradient(135deg, var(--color-primary), #b8911c);
+    color: #07090c;
+    box-shadow: 0 2px 8px rgba(212, 175, 55, 0.3);
+}
+
+/* Single-Language Hide/Show Rules */
+body.lang-en .label-ta,
+body.lang-en .btn-text-ta,
+body.lang-en .card-title-ta,
+body.lang-en .ta-col,
+body.lang-en .rasi-chart-ta,
+body.lang-en .dasha-bal-ta,
+body.lang-en #dasha-timeline-ta,
+body.lang-en #transit-timeline-ta {
+    display: none !important;
+}
+
+body.lang-ta .label-en,
+body.lang-ta .btn-text-en,
+body.lang-ta .card-title-en,
+body.lang-ta .en-col,
+body.lang-ta .rasi-chart-en,
+body.lang-ta .dasha-bal-en,
+body.lang-ta #dasha-timeline-en,
+body.lang-ta #transit-timeline-en {
+    display: none !important;
+}
+
+/* Collapse grid to a single column for clean layout */
+body.lang-en .results-grid-two-col,
+body.lang-ta .results-grid-two-col {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+/* Adjustments for charts and timelines to center beautifully */
+body.lang-en .chart-container,
+body.lang-ta .chart-container {
+    justify-content: center;
+}
+
+/* Print Styles & Secondary Button */
+.results-header-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1.5rem;
+}
+
+.btn-secondary {
+    background: rgba(139, 92, 246, 0.2);
+    border: 1px solid var(--color-accent);
+    color: var(--color-text-main);
+    border-radius: 12px;
+    padding: 0.75rem 2rem;
+    font-family: var(--font-header);
+    font-weight: 600;
+    font-size: 1.05rem;
+    cursor: pointer;
+    transition: var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);
+}
+
+.btn-secondary:hover {
+    background: rgba(139, 92, 246, 0.4);
+    border-color: var(--color-primary);
+    box-shadow: 0 6px 20px rgba(139, 92, 246, 0.3);
+    transform: translateY(-2px);
+}
+
+.btn-secondary:active {
+    transform: translateY(0);
+}
+
+.btn-secondary span {
+    display: block;
+}
+
+@media print {
+    /* Reset backgrounds and colors for paper printing */
+    body {
+        background: #ffffff !important;
+        color: #000000 !important;
+        font-family: 'Inter', Arial, sans-serif;
+    }
+
+    /* Hide form controls, headers, switcher buttons, and the print button itself */
+    .app-header, 
+    .input-card, 
+    .lang-switch-container, 
+    .results-header-actions, 
+    #loading, 
+    .app-footer {
+        display: none !important;
+    }
+
+    /* Ensure calculations are visible */
+    .results-section {
+        display: block !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    /* Clean white cards with gold borders for print */
+    .card {
+        background: #ffffff !important;
+        border: 1px solid #d4af37 !important;
+        box-shadow: none !important;
+        color: #000000 !important;
+        page-break-inside: avoid;
+        margin-bottom: 2rem !important;
+        padding: 1.5rem !important;
+    }
+
+    /* Titles */
+    .section-title {
+        color: #000000 !important;
+    }
+
+    .title-divider {
+        background: #d4af37 !important;
+        height: 1px !important;
+    }
+
+    /* Table & Details list formatting */
+    .info-row {
+        border-bottom: 1px dashed #cccccc !important;
+        color: #000000 !important;
+    }
+    
+    .info-row strong {
+        color: #333333 !important;
+    }
+
+    .info-row.highlight {
+        background: #fbf9f0 !important;
+        border: 1px solid #d4af37 !important;
+    }
+
+    .info-row.highlight strong,
+    .info-row.highlight span {
+        color: #8a6d0f !important;
+    }
+
+    /* South Indian Rasi Chart */
+    .rasi-chart-grid {
+        border: 3px solid #d4af37 !important;
+        background: #ffffff !important;
+        max-width: 380px !important;
+    }
+
+    .chart-cell {
+        border: 1px solid #d4af37 !important;
+        background: #ffffff !important;
+    }
+
+    .rasi-name {
+        color: #8a6d0f !important;
+        opacity: 1 !important;
+    }
+
+    /* Printable planet tags */
+    .planet-tag {
+        box-shadow: none !important;
+        border: 1px solid #999999 !important;
+    }
+    .lagna-tag { background: #f3e8ff !important; color: #6b21a8 !important; }
+    .sun-tag { background: #fef3c7 !important; color: #92400e !important; }
+    .moon-tag { background: #f0f9ff !important; color: #075985 !important; }
+    .mars-tag { background: #fee2e2 !important; color: #991b1b !important; }
+    .mercury-tag { background: #f0fdf4 !important; color: #166534 !important; }
+    .jupiter-tag { background: #fefcbf !important; color: #713f12 !important; }
+    .venus-tag { background: #fdf2f8 !important; color: #9d174d !important; }
+    .saturn-tag { background: #f3f4f6 !important; color: #374151 !important; }
+    .rahu-tag { background: #f5f3ff !important; color: #5b21b6 !important; }
+    .ketu-tag { background: #fff1f2 !important; color: #9f1239 !important; }
+
+    .chart-cell-center {
+        border: 1px solid #d4af37 !important;
+        background: #fcfcfc !important;
+        color: #000000 !important;
+    }
+
+    .chart-cell-center small {
+        color: #555555 !important;
+    }
+
+    /* Planetary Tables */
+    .data-table th {
+        color: #000000 !important;
+        border-bottom: 2px solid #d4af37 !important;
+    }
+
+    .data-table td {
+        border-bottom: 1px solid #eeeeee !important;
+        color: #000000 !important;
+    }
+
+    .data-table td strong {
+        color: #000000 !important;
+    }
+
+    /* Personality Predictions */
+    .pred-card {
+        background: #fafafa !important;
+        border-left: 3px solid #d4af37 !important;
+    }
+
+    .pred-card h4 {
+        color: #8a6d0f !important;
+    }
+
+    .pred-card p {
+        color: #111111 !important;
+    }
+
+    /* Timelines (Remove scrolling, make fully visible) */
+    .dasha-balance-header {
+        background: #fbf9f0 !important;
+        border: 1px solid #d4af37 !important;
+    }
+    
+    .dasha-timeline, .transit-timeline {
+        max-height: none !important;
+        overflow-y: visible !important;
+    }
+
+    .dasha-node {
+        background: #ffffff !important;
+        border: 1px solid #eeeeee !important;
+        page-break-inside: avoid;
+    }
+
+    .dasha-planet {
+        color: #8a6d0f !important;
+    }
+
+    .bhukti-badge {
+        background: #fafafa !important;
+        border: 1px solid #dddddd !important;
+    }
+
+    .bhukti-badge span {
+        color: #000000 !important;
+    }
+
+    /* Transits */
+    .transit-item {
+        background: #ffffff !important;
+        border: 1px solid #eeeeee !important;
+        border-left-width: 4px !important;
+        page-break-inside: avoid;
+    }
+
+    .transit-item.saturn { border-left-color: #4b5563 !important; }
+    .transit-item.jupiter { border-left-color: #d4af37 !important; }
+    .transit-item.rahu { border-left-color: #8b5cf6 !important; }
+
+    .transit-header {
+        color: #000000 !important;
+    }
+
+    .transit-body {
+        color: #333333 !important;
+    }
+
+    .transit-date {
+        color: #555555 !important;
+    }
+
+    @page {
+        size: A4 portrait;
+        margin: 15mm;
+    }
+}

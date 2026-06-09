@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karthi-Kiruthi AI Astrology | High-Precision Vedic Astrology & 100-Year Predictions</title>
+    
+    <!-- Premium Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Astronomy Engine Library (with Browser-CommonJS adapter) -->
+    <script>
+        var exports = {};
+    </script>
+    <script src="astronomy.js?v=3"></script>
+    <script>
+        var Astronomy = exports;
+    </script>
+</head>
+<body class="lang-en">
+    <div class="app-container">
+        <!-- Title Banner -->
+        <header class="app-header">
+            <h1 class="label-en">✨ Karthi-Kiruthi AI Astrology 🌌</h1>
+            <h1 class="label-ta">✨ கார்த்தி-கிருத்தி ஏஐ ஜோதிடம் 🌌</h1>
+            <p class="subtitle label-en">🪐 High-Precision Calculations & 🔮 100-Year Predictions</p>
+            <p class="subtitle label-ta">🪐 துல்லியமான வேத கணிதங்கள் & 🔮 100 வருட பெயர்ச்சி பலன்கள்</p>
+            
+            <!-- Language Switcher Pill Toggle -->
+            <div class="lang-switch-container">
+                <button type="button" id="btn-lang-en" class="lang-btn active">🌐 English</button>
+                <button type="button" id="btn-lang-ta" class="lang-btn">🪔 தமிழ்</button>
+            </div>
+        </header>
+
+        <!-- Main Content Area: Input Section -->
+        <main class="main-content">
+            <section class="card input-card">
+                <div class="card-header">
+                    <h3 class="card-title-en">📝 Enter Birth Details</h3>
+                    <h3 class="card-title-ta">📝 பிறப்பு விபரங்களை உள்ளீடு செய்க</h3>
+                </div>
+                
+                <form id="birth-form" class="form-grid">
+                    <!-- Name -->
+                    <div class="form-group">
+                        <label for="name" class="label-en">👤 Name</label>
+                        <label for="name" class="label-ta">👤 பெயர்</label>
+                        <input type="text" id="name" required placeholder="e.g. Kiruthik">
+                    </div>
+                    
+                    <!-- Date of Birth -->
+                    <div class="form-group">
+                        <label for="dob" class="label-en">📅 Date of Birth</label>
+                        <label for="dob" class="label-ta">📅 பிறந்த தேதி</label>
+                        <input type="date" id="dob" required>
+                    </div>
+                    
+                    <!-- Time of Birth -->
+                    <div class="form-group">
+                        <label for="tob" class="label-en">⌚ Time of Birth (Local)</label>
+                        <label for="tob" class="label-ta">⌚ பிறந்த நேரம்</label>
+                        <input type="time" id="tob" required>
+                    </div>
+                    
+                    <!-- Birthplace Search -->
+                    <div class="form-group autocomplete">
+                        <label for="birthplace" class="label-en">📍 Birthplace (City, Country)</label>
+                        <label for="birthplace" class="label-ta">📍 பிறந்த இடம்</label>
+                        <input type="text" id="birthplace" required placeholder="e.g. Chennai, India" autocomplete="off">
+                        <div id="geo-suggestions" class="suggestions-list"></div>
+                    </div>
+
+                    <!-- Google Maps API Key (Optional) -->
+                    <div class="form-group">
+                        <label for="google-api-key" class="label-en">🔑 Google Maps API Key (Optional)</label>
+                        <label for="google-api-key" class="label-ta">🔑 கூகுள் மேப்ஸ் API கீ (விருப்பத்தேர்வு)</label>
+                        <input type="password" id="google-api-key" placeholder="Enter key for Google Places dropdown" autocomplete="off">
+                    </div>
+                    
+                    <!-- Coordinates (filled automatically but editable) -->
+                    <div class="form-group">
+                        <label for="latitude" class="label-en">🗺️ Latitude</label>
+                        <label for="latitude" class="label-ta">🗺️ அட்சரேகை (Latitude)</label>
+                        <input type="number" id="latitude" step="0.0001" required placeholder="13.0827">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="longitude" class="label-en">🗺️ Longitude</label>
+                        <label for="longitude" class="label-ta">🗺️ தீர்க்கரேகை (Longitude)</label>
+                        <input type="number" id="longitude" step="0.0001" required placeholder="80.2707">
+                    </div>
+                    
+                    <!-- Timezone Offset -->
+                    <div class="form-group">
+                        <label for="timezone" class="label-en">⏰ Timezone (hours from UTC)</label>
+                        <label for="timezone" class="label-ta">⏰ நேர மண்டலம் (GMT Offset)</label>
+                        <input type="number" id="timezone" step="0.5" required placeholder="5.5">
+                    </div>
+                    
+                    <!-- Submit button -->
+                    <div class="form-submit">
+                        <button type="submit" class="btn btn-primary">
+                            <span class="btn-text-en">✨ Calculate Horoscope</span>
+                            <span class="btn-text-ta">✨ ஜாதகம் கணக்கிடுக</span>
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Loading Spinner -->
+            <section id="loading" class="card loading-card hidden">
+                <div class="spinner"></div>
+                <p class="loading-text-en">🔮 Generating astronomical chart and 🪐 100-year transits... Please wait! ✨</p>
+                <p class="loading-text-ta">🔮 ஜோதிட கட்டங்கள் மற்றும் 🪐 100 வருட பெயர்ச்சிகள் கணிக்கப்படுகின்றன... தயவுசெய்து காத்திருக்கவும்! ✨</p>
+            </section>
+
+            <!-- Results Section (Initially Hidden) -->
+            <section id="results-section" class="results-section hidden">
+                
+                <!-- Print Button Actions -->
+                <div class="results-header-actions">
+                    <button type="button" id="btn-print-horoscope" class="btn-secondary">
+                        <span class="btn-text-en">🖨️ Print / Save PDF</span>
+                        <span class="btn-text-ta">🖨️ அச்சிடு / PDF சேமி</span>
+                    </button>
+                </div>
+                
+                <!-- 1. Birth Info Card -->
+                <div class="card side-by-side-card">
+                    <div class="results-grid-two-col">
+                        <!-- English Column -->
+                        <div class="results-col en-col">
+                            <h3 class="section-title">📋 Horoscope Basic Details 👤</h3>
+                            <hr class="title-divider">
+                            <div id="info-panel-en" class="info-panel"></div>
+                        </div>
+                        <!-- Tamil Column -->
+                        <div class="results-col ta-col">
+                            <h3 class="section-title">📋 அடிப்படை ஜாதக விபரங்கள் 👤</h3>
+                            <hr class="title-divider">
+                            <div id="info-panel-ta" class="info-panel"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. Rasi Charts Card -->
+                <div class="card side-by-side-card">
+                    <div class="results-grid-two-col">
+                        <!-- English Rasi Chart -->
+                        <div class="results-col en-col">
+                            <h3 class="section-title">🎡 South Indian Rasi Chart (English) 🗺️</h3>
+                            <hr class="title-divider">
+                            <div class="chart-container">
+                                <div id="rasi-chart-en" class="rasi-chart-grid"></div>
+                            </div>
+                        </div>
+                        <!-- Tamil Rasi Chart -->
+                        <div class="results-col ta-col">
+                            <h3 class="section-title">🎡 தென்னிந்திய ராசி கட்டம் (தமிழ்) 🗺️</h3>
+                            <hr class="title-divider">
+                            <div class="chart-container">
+                                <div id="rasi-chart-ta" class="rasi-chart-grid"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. Planetary Longitudes Card -->
+                <div class="card side-by-side-card">
+                    <div class="results-grid-two-col">
+                        <!-- English Table -->
+                        <div class="results-col en-col">
+                            <h3 class="section-title">🪐 Planetary Degrees (Sidereal Lahiri) 📐</h3>
+                            <hr class="title-divider">
+                            <div class="table-responsive">
+                                <table id="planets-table-en" class="data-table"></table>
+                            </div>
+                        </div>
+                        <!-- Tamil Table -->
+                        <div class="results-col ta-col">
+                            <h3 class="section-title">🪐 கிரக பாகை விபரங்கள் (லஹிரி முறை) 📐</h3>
+                            <hr class="title-divider">
+                            <div class="table-responsive">
+                                <table id="planets-table-ta" class="data-table"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. Natal Predictions Card -->
+                <div class="card side-by-side-card">
+                    <div class="results-grid-two-col">
+                        <!-- English predictions -->
+                        <div class="results-col en-col">
+                            <h3 class="section-title">🧠 Personality & Character Predictions 🔮</h3>
+                            <hr class="title-divider">
+                            <div id="pred-panel-en" class="pred-panel"></div>
+                        </div>
+                        <!-- Tamil predictions -->
+                        <div class="results-col ta-col">
+                            <h3 class="section-title">🧠 சுபாவம் மற்றும் குணநலன் பலன்கள் 🔮</h3>
+                            <hr class="title-divider">
+                            <div id="pred-panel-ta" class="pred-panel"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. Vimshottari Dasha Card -->
+                <div class="card dasha-card">
+                    <div class="dasha-balance-header">
+                        <div id="dasha-balance-en" class="dasha-bal-en"></div>
+                        <div id="dasha-balance-ta" class="dasha-bal-ta"></div>
+                    </div>
+                    
+                    <div class="results-grid-two-col">
+                        <!-- English Dasha Timeline -->
+                        <div class="results-col en-col">
+                            <h3 class="section-title">⏳ 120-Year Vimshottari Dasha Timeline 🗓️</h3>
+                            <hr class="title-divider">
+                            <div id="dasha-timeline-en" class="dasha-timeline"></div>
+                        </div>
+                        <!-- Tamil Dasha Timeline -->
+                        <div class="results-col ta-col">
+                            <h3 class="section-title">⏳ விம்சோத்தரி தசா புத்திகள் (120 வருட தசா காலங்கள்) 🗓️</h3>
+                            <hr class="title-divider">
+                            <div id="dasha-timeline-ta" class="dasha-timeline"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6. Transit Predictions Card -->
+                <div class="card transits-card">
+                    <div class="results-grid-two-col">
+                        <!-- English Transits -->
+                        <div class="results-col en-col">
+                            <h3 class="section-title">🚀 Major Transit Timeline (Next 100 Years) 🪐</h3>
+                            <p class="section-sub">✨ Saturn, Jupiter, and Rahu transitions and their impact on your life</p>
+                            <hr class="title-divider">
+                            <div id="transit-timeline-en" class="transit-timeline"></div>
+                        </div>
+                        <!-- Tamil Transits -->
+                        <div class="results-col ta-col">
+                            <h3 class="section-title">🚀 அடுத்த 100 வருட முக்கிய கிரகப் பெயர்ச்சிகள் 🪐</h3>
+                            <p class="section-sub">✨ சனி, குரு மற்றும் ராகு பெயர்ச்சிகள் உங்கள் சந்திர ராசிக்கு ஏற்படுத்தும் பலன்கள்</p>
+                            <hr class="title-divider">
+                            <div id="transit-timeline-ta" class="transit-timeline"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Karthi-Kiruthi AI Astrology | Built with Astronomy Engine (VSOP87/NOVAS)</p>
+            <p>© 2026 Karthi-Kiruthi AI Astrology. All Rights Reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Application Script Files -->
+    <script src="translations.js?v=3"></script>
+    <script src="calculator.js?v=3"></script>
+    <script src="dasha.js?v=3"></script>
+    <script src="transits.js?v=3"></script>
+    <script src="app.js?v=3"></script>
+</body>
+</html>
