@@ -1,0 +1,7 @@
+.git
+.gitignore
+.dockerignore
+Dockerfile
+astrology-calculator.zip
+*.zip
+*.md
